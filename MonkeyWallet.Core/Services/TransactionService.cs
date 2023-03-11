@@ -79,7 +79,7 @@ namespace MonkeyWallet.Core.Services
             GetRequestedOutputs(transactionBody, transactionRequest);
 
             //perform coin selection
-            var coinSelection = ((TransactionBodyBuilder)transactionBody).UseLargestFirstWithImprove(utxos);
+            var coinSelection = ((TransactionBodyBuilder)transactionBody).UseRandomImprove(utxos,changeAddress.ToString());
             
             //add the inputs from coin selection to transaction body builder
             AddInputsFromCoinSelection(coinSelection, transactionBody);
@@ -196,7 +196,7 @@ namespace MonkeyWallet.Core.Services
                     else
                     {
                         tokenBundle.AddToken(asset.PolicyId.ToBytes(), asset.AssetName.ToBytes(),
-                            (ulong) asset.Quantity);
+                            (long)asset.Quantity);
                     }
                 }
 
