@@ -32,15 +32,11 @@
                 <TabItem.Header>
                     <TextBlock FontWeight="1500" VerticalAlignment="Center">Assets</TextBlock>
                 </TabItem.Header>
-                <Grid ColumnDefinitions="*" RowDefinitions="*">
-                </Grid>
             </TabItem>
             <TabItem>
                 <TabItem.Header>
                     <TextBlock FontWeight="1500" VerticalAlignment="Center">Voting</TextBlock>
                 </TabItem.Header>
-                <Grid ColumnDefinitions="*" RowDefinitions="*">
-                </Grid>
             </TabItem>
         </TabControl>
     </Grid>
