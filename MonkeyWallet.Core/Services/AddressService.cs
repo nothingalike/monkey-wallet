@@ -111,7 +111,7 @@ namespace MonkeyWallet.Core.Services
                         {
                             Name = aa.AssetName,
                             PolicyId = aa.PolicyId,
-                            Quantity = ulong.Parse(aa.Quantity)
+                            Quantity = long.Parse(aa.Quantity)
                         });
                     }
 

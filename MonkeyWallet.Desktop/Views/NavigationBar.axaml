@@ -13,7 +13,7 @@
                     <GradientStop Color="#33183E" Offset="1" />
                 </LinearGradientBrush>
         </Grid.Background>
-        <Image ClipToBounds="True" Margin="5, 2, 0, 8"  Source="/Assets/77856557.png" Width="50" Height="45" VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="0">
+        <Image ClipToBounds="True" Margin="10, 5, 5, 5"  Source="/Assets/77856557.png" Width="40" Height="40" VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="0">
         </Image>
 
 
