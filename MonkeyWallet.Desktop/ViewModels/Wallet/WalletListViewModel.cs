@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Net.NetworkInformation;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using ReactiveUI;
 
 namespace MonkeyWallet.Desktop.ViewModels.Wallet;
 
-public class WalletListViewModel
+public class WalletListViewModel : ViewModelBase, IRoutableViewModel
 {
+    public string UrlPathSegment => nameof(WalletListViewModel);
+    public IScreen HostScreen { get; }
+
+    public WalletListViewModel(IScreen screen)
+    {
+        HostScreen = screen;
+    }
 }

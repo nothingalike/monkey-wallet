@@ -25,7 +25,7 @@
             <TabItem.Header>
                 <TextBlock FontWeight="1500" VerticalAlignment="Center">Wallet</TextBlock>
             </TabItem.Header>
-            <local:WalletListView></local:WalletListView>
+            <local:BaseWalletView></local:BaseWalletView>
         </TabItem>
         <TabItem>
             <TabItem.Header>
