@@ -17,7 +17,15 @@ public class BaseWalletViewModel : ReactiveObject, IActivatableViewModel, IScree
     {
         if (!Router.NavigationStack.Any())
         {
-            Router.Navigate.Execute(new WalletListViewModel(this));
+            var hasWallet = false;
+            if (hasWallet)
+            {
+                Router.Navigate.Execute(new WalletListViewModel(this));
+            }else
+            {
+                Router.Navigate.Execute(new AddWalletViewModel(this));
+            }
+
             return;
         }
         Router.Navigate.Execute(Router.NavigationStack.First());
