@@ -1,4 +1,5 @@
-﻿using MonkeyWallet.Core.Data;
+﻿using CardanoSharp.Wallet.Models.Keys;
+using MonkeyWallet.Core.Data;
 using ReactiveUI;
 using Splat;
 using System;
@@ -43,6 +44,7 @@ public class AddWalletViewModel : ViewModelBase, IRoutableViewModel
     private async Task RestoreWalletHandler(CancellationToken arg)
     {
         //go to Enter Mnemonic View
+        HostScreen.Router.Navigate.Execute(new EnterMnemonicViewModel(null, HostScreen));
     }
 
     private async Task GoBackHandler(CancellationToken arg)
