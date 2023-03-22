@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Microsoft.Extensions.Hosting;
 using MonkeyWallet.Core.Data;
 using ReactiveUI;
@@ -35,11 +36,14 @@ public class WalletListViewModel : ViewModelBase, IRoutableViewModel
         set => this.RaiseAndSetIfChanged(ref _hasNoWallet, value);
     }
 
+    public ICommand GoToAddWallet { get; set; }
+
     public WalletListViewModel(IScreen screen, IWalletDatabase walletDatabase)
     {
         HostScreen = screen;
         _walletDatabase = walletDatabase;
-        Task.Run(async () => await CheckHasWallets());
+        GoToAddWallet = ReactiveCommand.CreateFromTask(NavigateToAddWalletView);
+        Task.Run(() => CheckHasWallets());
     }
 
     private async Task CheckHasWallets()
@@ -53,5 +57,10 @@ public class WalletListViewModel : ViewModelBase, IRoutableViewModel
         UserWallets.Add(new WalletListItemViewModel(new Core.Data.Models.Wallet(){Name = "Test Wallet"}));
         UserWallets.Add(new WalletListItemViewModel(new Core.Data.Models.Wallet(){Name = "Test Wallet 2"}));
         if (!wallets.Any()) HasNoWallet = true;
+    }
+
+    private async Task NavigateToAddWalletView()
+    {
+        HostScreen.Router.Navigate.Execute(new AddWalletViewModel(HostScreen));
     }
 }

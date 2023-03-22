@@ -15,6 +15,7 @@ public class AppViewLocator : ReactiveUI.IViewLocator
         DisclaimerViewModel context => new DisclaimerView() { DataContext = context },
         ShowMnemonicViewModel context => new ShowMnemonicView() { DataContext = context },
         EnterMnemonicViewModel context => new EnterMnemonicView() { DataContext = context },
+        NameAndSecureViewModel context => new NameAndSecureView() { DataContext = context },
         WalletDetailViewModel context => new WalletDetailView() { DataContext = context },
         _ => throw new ArgumentOutOfRangeException(nameof(viewModel))
     };

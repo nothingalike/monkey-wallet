@@ -10,7 +10,7 @@
       VerticalAlignment="Center"
       HorizontalAlignment="Stretch">
     <Grid ColumnDefinitions="*,*"
-          RowDefinitions="*,*"
+          RowDefinitions="*,*,*"
           VerticalAlignment="Center"
           HorizontalAlignment="Center">
       <Label>Mnemonic</Label>
@@ -23,6 +23,7 @@
               Grid.Row="1"
               Grid.Column="1"
               Command="{Binding RestoreWallet}">Restore Wallet</Button>
+      <Button Command="{Binding GoBack}" Grid.Row="2" Margin="0, 5">Cancel</Button>
     </Grid>
   </Panel>
 </UserControl>

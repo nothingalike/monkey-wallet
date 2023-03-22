@@ -1,4 +1,7 @@
-﻿using ReactiveUI;
+﻿using MonkeyWallet.Core.Data;
+using MonkeyWallet.Core.Services;
+using ReactiveUI;
+using Splat;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,7 +55,7 @@ public class EnterMnemonicViewModel: ViewModelBase, IRoutableViewModel
     private async Task NextHandler(CancellationToken arg)
     {
         //go to Show Mnemonic View
-        //HostScreen.Router.Navigate.Execute(new NameAndSecureViewModel(HostScreen));
+        HostScreen.Router.Navigate.Execute(new NameAndSecureViewModel(ConfirmMnemonic, HostScreen, Locator.Current.GetService<IWalletService>()));
     }
 
     private async Task PreviousHandler(CancellationToken arg)

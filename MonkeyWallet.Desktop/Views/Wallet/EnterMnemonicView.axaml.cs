@@ -153,8 +153,6 @@ public partial class EnterMnemonicView : ReactiveUserControl<EnterMnemonicViewMo
                 break;
         }
 
-        Console.WriteLine(JsonConvert.SerializeObject(ViewModel.ConfirmMnemonic));
-
         ViewModel.WordCheck();
     }
 }
