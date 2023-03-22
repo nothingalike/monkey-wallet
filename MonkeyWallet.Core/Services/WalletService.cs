@@ -45,9 +45,6 @@ namespace MonkeyWallet.Core.Services
                 throw new Exception("Wallet already exists");
             }
 
-            //await database.RunInTransactionAsync(async (SQLiteConnection transaction) =>
-            //{
-            //transaction.BeginTransaction();
             int accountIx = 0;
 
             walletId = await _walletDatabase.SaveAsync(new Wallet
@@ -73,9 +70,6 @@ namespace MonkeyWallet.Core.Services
                 KeyIndex = accountIx,
                 AccountIndex = accountIx
             });
-
-            //    transaction.Commit();
-            //});
 
             var wallets = await _walletDatabase.ListAsync();
             var wallet = await _walletDatabase.GetByIdAsync(walletId);

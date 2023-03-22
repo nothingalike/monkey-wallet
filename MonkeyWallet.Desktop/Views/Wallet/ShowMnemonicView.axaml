@@ -4,5 +4,132 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MonkeyWallet.Desktop.Views.Wallet.ShowMnemonicView">
-  Welcome to Avalonia!
+
+  <Panel HorizontalAlignment="Center" VerticalAlignment="Center">
+    <StackPanel Classes="WizardItemContainer">
+      <Label Classes="WizardHeader">Recovery Phrase</Label>
+
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition />
+          <RowDefinition />
+          <RowDefinition />
+          <RowDefinition />
+          <RowDefinition />
+          <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition />
+          <ColumnDefinition />
+          <ColumnDefinition />
+          <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <!-- Row 1 -->
+        <Border Classes="Card" Padding="5">
+          <Label Name="Word1" />
+        </Border>
+        <Border Grid.Column="1" Classes="Card" Padding="5">
+          <Label Name="Word2" />
+        </Border>
+        <Border Grid.Column="2" Classes="Card" Padding="5">
+          <Label Name="Word3" />
+        </Border>
+        <Border Grid.Column="3" Classes="Card" Padding="5">
+          <Label Name="Word4" />
+        </Border>
+
+        <!-- Row 2 -->
+        <Border Grid.Row="1" Grid.Column="0" Classes="Card" Padding="5">
+          <Label Name="Word5" />
+        </Border>
+        <Border  Grid.Row="1" Grid.Column="1" Classes="Card" Padding="5">
+          <Label Name="Word6" />
+        </Border>
+        <Border  Grid.Row="1" Grid.Column="2" Classes="Card" Padding="5">
+          <Label Name="Word7" />
+        </Border>
+        <Border  Grid.Row="1" Grid.Column="3" Classes="Card" Padding="5">
+          <Label Name="Word8" />
+        </Border>
+
+        <!-- Row 3 -->
+        <Border Grid.Row="2" Grid.Column="0" Classes="Card" Padding="5">
+          <Label Name="Word9" />
+        </Border>
+        <Border Grid.Row="2" Grid.Column="1" Classes="Card" Padding="5">
+          <Label Name="Word10" />
+        </Border>
+        <Border Grid.Row="2" Grid.Column="2" Classes="Card" Padding="5">
+          <Label Name="Word11" />
+        </Border>
+        <Border Grid.Row="2" Grid.Column="3" Classes="Card" Padding="5">
+          <Label Name="Word12" />
+        </Border>
+
+        <!-- Row 4-->
+        <Border  Grid.Row="3" Grid.Column="0" Classes="Card" Padding="5">
+          <Label Name="Word13" />
+        </Border>
+        <Border Grid.Row="3" Grid.Column="1" Classes="Card" Padding="5">
+          <Label Name="Word14" />
+        </Border>
+        <Border Grid.Row="3" Grid.Column="2" Classes="Card" Padding="5">
+          <Label Name="Word15" />
+        </Border>
+        <Border Grid.Row="3" Grid.Column="3" Classes="Card" Padding="5">
+          <Label Name="Word16" />
+        </Border>
+
+        <!-- Row 5 -->
+        <Border Grid.Row="4" Grid.Column="0" Classes="Card" Padding="5">
+          <Label Name="Word17" />
+        </Border>
+        <Border Grid.Row="4" Grid.Column="1" Classes="Card" Padding="5">
+          <Label Name="Word18" />
+        </Border>
+        <Border Grid.Row="4" Grid.Column="2" Classes="Card" Padding="5">
+          <Label Name="Word19" />
+        </Border>
+        <Border Grid.Row="4" Grid.Column="3" Classes="Card" Padding="5">
+          <Label Name="Word20" />
+        </Border>
+
+        <!-- Row 6 -->
+        <Border Grid.Row="5" Grid.Column="0" Classes="Card" Padding="5">
+          <Label Name="Word21" />
+        </Border>
+        <Border Grid.Row="5" Grid.Column="1" Classes="Card" Padding="5">
+          <Label Name="Word22" />
+        </Border>
+        <Border Grid.Row="5" Grid.Column="2" Classes="Card" Padding="5">
+          <Label Name="Word23" />
+        </Border>
+        <Border Grid.Row="5" Grid.Column="3" Classes="Card" Padding="5">
+          <Label Name="Word24" />
+        </Border>
+      </Grid>
+
+      <Border Classes="Card" >
+        <StackPanel>
+          <Label>Attention</Label>
+          <Label>Make sure you write down the 24 words on a piece of paper or something that is not online.</Label>
+        </StackPanel>
+      </Border>
+
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition />
+          <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Button Grid.Column="0"
+                Command="{Binding Previous}"
+                Margin="10">Back</Button>
+        <Button Grid.Column="1"
+                Command="{Binding Next}"
+                Margin="10">Next</Button>
+      </Grid>
+    </StackPanel>
+  </Panel>
+  
 </UserControl>

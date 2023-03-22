@@ -1,5 +1,4 @@
-﻿using CardanoSharp.Wallet;
-using ReactiveUI;
+﻿using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,47 +6,43 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using IWalletService = .IWalletService;
 
 namespace MonkeyWallet.Desktop.ViewModels.Wallet;
 
-public class ShowMnemonicViewModel : ViewModelBase, IRoutableViewModel
+public class NameAndSecureViewModel : ViewModelBase, IRoutableViewModel
 {
     public string UrlPathSegment => nameof(AddWalletViewModel);
     public IScreen HostScreen { get; }
-
     public List<string> Mnemonic { get; set; }
-
+    public string Name { get; set; }
+    public string SpendingPassword { get; set; }
+    public string ConfirmPassword { get; set; }
     public ICommand Previous { get; set; }
     public ICommand Next { get; set; }
 
-    public ShowMnemonicViewModel()
-    {
-        Mnemonic = new List<string>();
-        Next = ReactiveCommand.CreateFromTask(NextHandler);
-        Previous = ReactiveCommand.CreateFromTask(PreviousHandler);
-        GenerateMnemonic();
-    }
+    public List<string> Errors { get; set; }
 
-    public ShowMnemonicViewModel(IScreen screen)
+    public NameAndSecureViewModel(List<string> mnemonic, IScreen screen)
     {
+        Mnemonic = mnemonic;    
         HostScreen = screen;
-        Mnemonic = new List<string>();
         Next = ReactiveCommand.CreateFromTask(NextHandler);
         Previous = ReactiveCommand.CreateFromTask(PreviousHandler);
-        GenerateMnemonic();
     }
 
-    private void GenerateMnemonic()
+    public NameAndSecureViewModel(List<string> mnemonic)
     {
-        if(Mnemonic is null || !Mnemonic.Any())
-            Mnemonic = new MnemonicService().Generate(24).Words.Split(" ").ToList();
-        
+        Mnemonic = mnemonic;
+        Next = ReactiveCommand.CreateFromTask(NextHandler);
+        Previous = ReactiveCommand.CreateFromTask(PreviousHandler);
     }
 
     private async Task NextHandler(CancellationToken arg)
     {
+        //save wallet
         //go to Show Mnemonic View
-        HostScreen.Router.Navigate.Execute(new EnterMnemonicViewModel(Mnemonic, HostScreen));
+        HostScreen.Router.NavigateAndReset.Execute(new WalletListViewModel(HostScreen));
     }
 
     private async Task PreviousHandler(CancellationToken arg)

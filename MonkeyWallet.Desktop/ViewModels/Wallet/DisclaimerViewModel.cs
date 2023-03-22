@@ -39,7 +39,7 @@ public class DisclaimerViewModel: ViewModelBase, IRoutableViewModel
     private async Task NextHandler(CancellationToken arg)
     {
         //go to Show Mnemonic View
-        //HostScreen.Router.Navigate.Execute(new DisclaimerViewModel(HostScreen));
+        HostScreen.Router.Navigate.Execute(new ShowMnemonicViewModel(HostScreen));
     }
 
     private async Task PreviousHandler(CancellationToken arg)
