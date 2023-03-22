@@ -31,4 +31,8 @@
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MonkeyWallet.Core\MonkeyWallet.Core.csproj" />
+  </ItemGroup>
 </Project>
