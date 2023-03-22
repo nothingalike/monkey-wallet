@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:wallet="clr-namespace:MonkeyWallet.Desktop.ViewModels.Wallet"
              xmlns:reactiveUi="http://reactiveui.net"
+             xmlns:utility="clr-namespace:MonkeyWallet.Desktop.Utility"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MonkeyWallet.Desktop.Views.Wallet.BaseWalletView">
     <Design.DataContext>
@@ -19,13 +20,17 @@
                     MaterialOpacity="0.65" />
             </ExperimentalAcrylicBorder.Material>
         </ExperimentalAcrylicBorder>
-        <reactiveUi:RoutedViewHost Grid.Row="0" Router="{Binding Router}">
+        <reactiveUi:RoutedViewHost Router="{Binding Router}" PageTransition="{x:Null}">
             <reactiveUi:RoutedViewHost.DefaultContent>
                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                     <TextBlock Classes="h1" Text="Ready to monkey around?"/>
                     <TextBlock Text="Loading..." HorizontalAlignment="Center" TextAlignment="Center"/>
                 </StackPanel>
             </reactiveUi:RoutedViewHost.DefaultContent>
+            <reactiveUi:RoutedViewHost.ViewLocator>
+                <!-- See AppViewLocator.cs section below -->
+                <utility:AppViewLocator />
+            </reactiveUi:RoutedViewHost.ViewLocator>
         </reactiveUi:RoutedViewHost>
     </Panel>
 </UserControl>

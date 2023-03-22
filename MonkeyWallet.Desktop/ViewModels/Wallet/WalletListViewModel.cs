@@ -11,4 +11,9 @@ public class WalletListViewModel : ViewModelBase, IRoutableViewModel
     {
         HostScreen = screen;
     }
+
+    private void CheckHasWallets()
+    {
+
+    }
 }
