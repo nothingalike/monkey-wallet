@@ -26,6 +26,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MonkeyWallet.Core\MonkeyWallet.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Views\Wallet\BaseWalletView.axaml.cs">
       <DependentUpon>BaseWalletView.axaml</DependentUpon>
       <SubType>Code</SubType>

@@ -5,6 +5,9 @@ using System.Reflection;
 using MonkeyWallet.Core.Data;
 using ReactiveUI;
 using Splat;
+using IMonkeyWalletService = MonkeyWallet.Core.Services.IWalletService;
+using MonkeyWalletService = MonkeyWallet.Core.Services.WalletService;
+using CardanoSharp.Wallet;
 
 namespace MonkeyWallet.Desktop
 {
@@ -29,6 +32,13 @@ namespace MonkeyWallet.Desktop
         
         private static void Register()
         {
-            Locator.CurrentMutable.Register<IWalletDatabase>(() => new WalletDatabase());        }
+            Locator.CurrentMutable.Register<IWalletDatabase>(() => new WalletDatabase());
+            Locator.CurrentMutable.Register<IWalletKeyDatabase>(() => new WalletKeyDatabase());
+            Locator.CurrentMutable.Register<IMonkeyWalletService>(() => new MonkeyWalletService(
+                new MnemonicService(),
+                Locator.Current.GetService<IWalletKeyDatabase>(),
+                Locator.Current.GetService<IWalletDatabase>()
+            ));
+        }
     }
 }

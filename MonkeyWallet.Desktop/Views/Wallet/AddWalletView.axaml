@@ -1,0 +1,29 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="clr-namespace:MonkeyWallet.Desktop.ViewModels.Wallet"
+             x:Class="MonkeyWallet.Desktop.Views.Wallet.AddWalletView">
+
+  <Panel
+      VerticalAlignment="Center"
+      HorizontalAlignment="Stretch">
+    <Grid ColumnDefinitions="*,*"
+          RowDefinitions="*,*,*"
+          VerticalAlignment="Center"
+          HorizontalAlignment="Center">
+      <Label>Mnemonic</Label>
+      <Button Padding="20"
+              Margin="0, 0, 10, 0"
+              Grid.Row="1"
+              Command="{Binding CreateWallet}">Create Wallet</Button>
+      <Button Padding="20"
+              Margin="10, 0, 0, 0"
+              Grid.Row="1"
+              Grid.Column="1"
+              Command="{Binding RestoreWallet}">Restore Wallet</Button>
+      <Button Command="{Binding GoBack}" Grid.Row="2" Margin="0, 5">Cancel</Button>
+    </Grid>
+  </Panel>
+</UserControl>
