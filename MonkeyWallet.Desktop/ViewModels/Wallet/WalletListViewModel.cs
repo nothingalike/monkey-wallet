@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using MonkeyWallet.Core.Data;
@@ -12,6 +13,14 @@ public class WalletListViewModel : ViewModelBase, IRoutableViewModel
     public IScreen HostScreen { get; }
 
     private readonly IWalletDatabase _walletDatabase;
+    public ObservableCollection<WalletListItemViewModel> UserWallets { get; } = new(); 
+    
+    private WalletListItemViewModel? _selectedWallet;
+    public WalletListItemViewModel? SelectedWallet
+    {
+        get => _selectedWallet;
+        set => this.RaiseAndSetIfChanged(ref _selectedWallet, value);
+    }
 
     private bool _hasNoWallet;
     public bool HasNoWallet
@@ -30,7 +39,13 @@ public class WalletListViewModel : ViewModelBase, IRoutableViewModel
     private async Task CheckHasWallets()
     {
         List<Core.Data.Models.Wallet> wallets = await _walletDatabase.ListAsync();
-
+        
+        foreach (var wallet in wallets)
+        {
+            UserWallets.Add(new WalletListItemViewModel(wallet));
+        }
+        UserWallets.Add(new WalletListItemViewModel(new Core.Data.Models.Wallet(){Name = "Test Wallet"}));
+        UserWallets.Add(new WalletListItemViewModel(new Core.Data.Models.Wallet(){Name = "Test Wallet 2"}));
         if (!wallets.Any()) HasNoWallet = true;
     }
 }
