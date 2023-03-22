@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Hosting;
 using MonkeyWallet.Core.Data;
 using ReactiveUI;
 
@@ -19,7 +21,11 @@ public class WalletListViewModel : ViewModelBase, IRoutableViewModel
     public WalletListItemViewModel? SelectedWallet
     {
         get => _selectedWallet;
-        set => this.RaiseAndSetIfChanged(ref _selectedWallet, value);
+        set
+        {
+            this.RaiseAndSetIfChanged(ref _selectedWallet, value);
+            HostScreen.Router.Navigate.Execute(new WalletDetailViewModel(HostScreen));
+        }
     }
 
     private bool _hasNoWallet;
