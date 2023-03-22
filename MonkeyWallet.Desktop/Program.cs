@@ -1,6 +1,10 @@
 ﻿using Avalonia;
 using Avalonia.ReactiveUI;
 using System;
+using System.Reflection;
+using MonkeyWallet.Core.Data;
+using ReactiveUI;
+using Splat;
 
 namespace MonkeyWallet.Desktop
 {
@@ -15,9 +19,16 @@ namespace MonkeyWallet.Desktop
 
         // Avalonia configuration, don't remove; also used by visual designer.
         public static AppBuilder BuildAvaloniaApp()
-            => AppBuilder.Configure<App>()
+        {
+            Register();
+            return AppBuilder.Configure<App>()
                 .UseReactiveUI()
                 .UsePlatformDetect()
                 .LogToTrace();
+        }
+        
+        private static void Register()
+        {
+            Locator.CurrentMutable.Register<IWalletDatabase>(() => new WalletDatabase());        }
     }
 }

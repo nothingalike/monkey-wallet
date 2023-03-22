@@ -1,5 +1,7 @@
 ﻿using System.Linq;
+using MonkeyWallet.Core.Data;
 using ReactiveUI;
+using Splat;
 
 namespace MonkeyWallet.Desktop.ViewModels.Wallet;
 
@@ -17,15 +19,7 @@ public class BaseWalletViewModel : ReactiveObject, IActivatableViewModel, IScree
     {
         if (!Router.NavigationStack.Any())
         {
-            var hasWallet = false;
-            if (hasWallet)
-            {
-                Router.Navigate.Execute(new WalletListViewModel(this));
-            }else
-            {
-                Router.Navigate.Execute(new AddWalletViewModel(this));
-            }
-
+            Router.Navigate.Execute(new WalletListViewModel(this, Locator.Current.GetService<IWalletDatabase>()));
             return;
         }
         Router.Navigate.Execute(Router.NavigationStack.First());
