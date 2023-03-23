@@ -4,5 +4,35 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MonkeyWallet.Desktop.Views.Wallet.WalletDetailView">
-    Welcome to Avalonia!
+
+    <Grid RowDefinitions="Auto, Auto">
+        <Grid ColumnDefinitions="Auto, Auto, Auto, Auto" Grid.Column="0" Grid.Row="0" Height="150">
+            <Button Height="50" Width="100" Margin="50,0,50,0" Command="{Binding GotToWalletListView}" VerticalAlignment="Center" HorizontalAlignment="Stretch" Grid.Column="0">Wallets</Button>
+            <TextBlock ClipToBounds="True" Text="{Binding WalletName}" Margin="100,0,100,0" FontSize="100" FontWeight="1500" VerticalAlignment="Center" HorizontalAlignment="Stretch" Grid.Column="1"></TextBlock>
+            <TextBlock Text="{Binding WalletType}" Margin="100,0,100,0" FontSize="100" FontWeight="1500" VerticalAlignment="Center" HorizontalAlignment="Stretch" Grid.Column="2"></TextBlock>
+            <TextBlock Text="{Binding AdaPrice}" Margin="100,0,100,0" FontSize="100" FontWeight="1500" VerticalAlignment="Center" HorizontalAlignment="Stretch" Grid.Column="3"></TextBlock>
+        </Grid>
+        <TabControl TabStripPlacement="Top" HorizontalAlignment="Center" Padding="0" Grid.Column="0" Grid.Row="1">
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock FontWeight="1500" VerticalAlignment="Center">Transactions</TextBlock>
+                </TabItem.Header>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock FontWeight="1500" VerticalAlignment="Center">Send</TextBlock>
+                </TabItem.Header>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock FontWeight="1500" VerticalAlignment="Center">Receive</TextBlock>
+                </TabItem.Header>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock FontWeight="1500" VerticalAlignment="Center">Settings</TextBlock>
+                </TabItem.Header>
+            </TabItem>
+        </TabControl>
+    </Grid>
 </UserControl>

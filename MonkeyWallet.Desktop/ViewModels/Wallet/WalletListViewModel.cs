@@ -25,7 +25,7 @@ public class WalletListViewModel : ViewModelBase, IRoutableViewModel
         set
         {
             this.RaiseAndSetIfChanged(ref _selectedWallet, value);
-            HostScreen.Router.Navigate.Execute(new WalletDetailViewModel(HostScreen));
+            HostScreen.Router.Navigate.Execute(new WalletDetailViewModel(HostScreen, SelectedWallet!.Wallet));
         }
     }
 

@@ -5,12 +5,12 @@ using Wallet =  MonkeyWallet.Core.Data.Models.Wallet;
 
 public class WalletListItemViewModel : ViewModelBase
 {
-    private readonly Wallet _wallet;
+    public Wallet Wallet { get; set; }
 
     public WalletListItemViewModel(Wallet wallet)
     {
-        _wallet = wallet;
+        Wallet = wallet;
     }
 
-    public string WalletName => _wallet.Name;
+    public string WalletName => Wallet.Name;
 }
