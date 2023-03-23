@@ -2,44 +2,48 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="using:MonkeyWallet.Desktop.Views.Wallet"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MonkeyWallet.Desktop.Views.NavigationBar">
 
 
-    <Grid ColumnDefinitions="Auto,*" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="50">
-        <Grid.Background>
+    <TabControl TabStripPlacement="Bottom" Padding="0">
+        <TabControl.Background>
             <LinearGradientBrush StartPoint="20%,20%" EndPoint="100%,100%">
-                    <GradientStop Color="#E3EFF4" Offset="0" />
-                    <GradientStop Color="#33183E" Offset="1" />
-                </LinearGradientBrush>
-        </Grid.Background>
-        <Image ClipToBounds="True" Margin="10, 5, 5, 5"  Source="/Assets/77856557.png" Width="40" Height="40" VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="0">
-        </Image>
+                <GradientStop Color="#E3EFF4" Offset="0" />
+                <GradientStop Color="#33183E" Offset="1" />
+            </LinearGradientBrush>
+        </TabControl.Background>
 
-
-        <TabControl TabStripPlacement="Bottom" Margin="0, 0, 0, 5" Grid.Row="0" Grid.Column="1">
-            <TabItem>
-                <TabItem.Header>
-                    <TextBlock FontWeight="1500" VerticalAlignment="Center">Wallet</TextBlock>
-                </TabItem.Header>
-            </TabItem>
-            <TabItem>
-                <TabItem.Header>
-                    <TextBlock FontWeight="1500" VerticalAlignment="Center">Staking</TextBlock>
-                </TabItem.Header>
-            </TabItem>
-            <TabItem>
-                <TabItem.Header>
-                    <TextBlock FontWeight="1500" VerticalAlignment="Center">Assets</TextBlock>
-                </TabItem.Header>
-            </TabItem>
-            <TabItem>
-                <TabItem.Header>
-                    <TextBlock FontWeight="1500" VerticalAlignment="Center">Voting</TextBlock>
-                </TabItem.Header>
-            </TabItem>
-        </TabControl>
-    </Grid>
+        <TabItem IsEnabled="False">
+            <TabItem.Header>
+                <Image ClipToBounds="True" Margin="10, 5, 5, 5" Source="/Assets/77856557.png" Width="40" Height="40" VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="0">
+                </Image>
+            </TabItem.Header>
+        </TabItem>
+        <TabItem IsSelected="True">
+            <TabItem.Header>
+                <TextBlock FontWeight="1500" VerticalAlignment="Center">Wallet</TextBlock>
+            </TabItem.Header>
+            
+            <local:BaseWalletView></local:BaseWalletView>
+        </TabItem>
+        <TabItem>
+            <TabItem.Header>
+                <TextBlock FontWeight="1500" VerticalAlignment="Center">Staking</TextBlock>
+            </TabItem.Header>
+        </TabItem>
+        <TabItem>
+            <TabItem.Header>
+                <TextBlock FontWeight="1500" VerticalAlignment="Center">Assets</TextBlock>
+            </TabItem.Header>
+        </TabItem>
+        <TabItem>
+            <TabItem.Header>
+                <TextBlock FontWeight="1500" VerticalAlignment="Center">Voting</TextBlock>
+            </TabItem.Header>
+        </TabItem>
+    </TabControl>
 
 
 </UserControl>

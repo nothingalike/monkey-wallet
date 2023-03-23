@@ -36,21 +36,16 @@ namespace MonkeyWallet.Core.Services
         {
             // Restore a Mnemonic
             var mnemonic = _mnemonicService.Restore(recoveryPhrase);
-            Wallet newlyCreatedWallet;
-            int walletId = 0;
-            int walletKeyId = 0;
+            Wallet? newlyCreatedWallet;
 
             if (await _walletDatabase.ExistsAsync(name))
             {
                 throw new Exception("Wallet already exists");
             }
 
-            //await database.RunInTransactionAsync(async (SQLiteConnection transaction) =>
-            //{
-            //transaction.BeginTransaction();
             int accountIx = 0;
 
-            walletId = await _walletDatabase.SaveAsync(new Wallet
+            await _walletDatabase.SaveAsync(new Wallet
             {
                 Name = name,
                 WalletType = (int)WalletType.HD,
@@ -64,7 +59,7 @@ namespace MonkeyWallet.Core.Services
                 .Derive(accountIx);
             accountNode.SetPublicKey();
 
-            walletKeyId = await _walletKeyDatabase.SaveWalletAsync(new WalletKey
+            await _walletKeyDatabase.SaveWalletAsync(new WalletKey
             {
                 WalletId = newlyCreatedWallet.Id,
                 KeyType = (int)KeyType.Account,
@@ -73,13 +68,6 @@ namespace MonkeyWallet.Core.Services
                 KeyIndex = accountIx,
                 AccountIndex = accountIx
             });
-
-            //    transaction.Commit();
-            //});
-
-            var wallets = await _walletDatabase.ListAsync();
-            var wallet = await _walletDatabase.GetByIdAsync(walletId);
-            var walletKey = await _walletKeyDatabase.GetWalletKeyAsync(walletKeyId);
         }
     }
 }
