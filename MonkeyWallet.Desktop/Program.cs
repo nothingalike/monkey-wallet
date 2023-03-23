@@ -32,6 +32,7 @@ namespace MonkeyWallet.Desktop
         
         private static void Register()
         {
+            Locator.CurrentMutable.Register<ISettingsDatabase>(() => new SettingsDatabase());
             Locator.CurrentMutable.Register<IWalletDatabase>(() => new WalletDatabase());
             Locator.CurrentMutable.Register<IWalletKeyDatabase>(() => new WalletKeyDatabase());
             Locator.CurrentMutable.Register<IMonkeyWalletService>(() => new MonkeyWalletService(

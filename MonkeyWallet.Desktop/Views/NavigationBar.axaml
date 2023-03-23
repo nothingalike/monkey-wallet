@@ -2,7 +2,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:local="using:MonkeyWallet.Desktop.Views.Wallet"
+             xmlns:vwallet="using:MonkeyWallet.Desktop.Views.Wallet"
+             xmlns:vsettings="using:MonkeyWallet.Desktop.Views.Settings"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MonkeyWallet.Desktop.Views.NavigationBar">
 
@@ -26,7 +27,7 @@
                 <TextBlock FontWeight="1500" VerticalAlignment="Center">Wallet</TextBlock>
             </TabItem.Header>
             
-            <local:BaseWalletView></local:BaseWalletView>
+            <vwallet:BaseWalletView></vwallet:BaseWalletView>
         </TabItem>
         <TabItem>
             <TabItem.Header>
@@ -42,6 +43,13 @@
             <TabItem.Header>
                 <TextBlock FontWeight="1500" VerticalAlignment="Center">Voting</TextBlock>
             </TabItem.Header>
+        </TabItem>
+        <TabItem>
+            <TabItem.Header>
+                <TextBlock FontWeight="1500" VerticalAlignment="Center">Settings</TextBlock>
+            </TabItem.Header>
+            
+            <vsettings:MonkeySettingsView></vsettings:MonkeySettingsView>
         </TabItem>
     </TabControl>
 
