@@ -1,0 +1,21 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MonkeyWallet.Desktop.Views.Settings.MonkeySettingsView">
+    
+    <StackPanel VerticalAlignment="Center" 
+          HorizontalAlignment="Center">
+        <Label>Monkey Settings</Label>
+        <Grid ColumnDefinitions="*,*" RowDefinitions="*">
+            <Label>Network</Label>
+            <ComboBox Grid.Column="1" Name="cbNetwork" SelectedIndex="{Binding NetworkIndex}">
+                <ComboBoxItem>Mainnet</ComboBoxItem>
+                <ComboBoxItem>Preprod</ComboBoxItem>
+                <ComboBoxItem>Preview</ComboBoxItem>
+            </ComboBox>
+        </Grid>
+        <Button Command="{Binding Submit}">Update</Button>
+    </StackPanel>
+</UserControl>
