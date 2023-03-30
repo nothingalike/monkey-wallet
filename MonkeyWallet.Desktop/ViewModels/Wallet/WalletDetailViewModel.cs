@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using MonkeyWallet.Core.Data;
+using MonkeyWallet.Desktop.Models;
 using ReactiveUI;
 using Splat;
 
@@ -66,7 +67,7 @@ public class WalletDetailViewModel : ViewModelBase, IRoutableViewModel
 
     private void RouteToWalletListView()
     {
-        HostScreen.Router.NavigateBack.Execute();
+        HostScreen.Router.NavigateAndReset.Execute(new WalletListViewModel(HostScreen, Locator.Current.GetService<IWalletDatabase>(), Locator.Current.GetService<SelectedWalletState>()));
     }
 
 

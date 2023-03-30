@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Microsoft.Extensions.Hosting;
 using MonkeyWallet.Core.Data;
+using MonkeyWallet.Desktop.Models;
 using ReactiveUI;
 
 namespace MonkeyWallet.Desktop.ViewModels.Wallet;
@@ -25,6 +26,7 @@ public class WalletListViewModel : ViewModelBase, IRoutableViewModel
         set
         {
             this.RaiseAndSetIfChanged(ref _selectedWallet, value);
+            _selectedWalletState.SetWallet(SelectedWallet!.Wallet);
             HostScreen.Router.Navigate.Execute(new WalletDetailViewModel(HostScreen, SelectedWallet!.Wallet));
         }
     }
@@ -38,10 +40,13 @@ public class WalletListViewModel : ViewModelBase, IRoutableViewModel
 
     public ICommand GoToAddWallet { get; set; }
 
-    public WalletListViewModel(IScreen screen, IWalletDatabase walletDatabase)
+    private readonly SelectedWalletState _selectedWalletState;
+
+    public WalletListViewModel(IScreen screen, IWalletDatabase walletDatabase, SelectedWalletState selectedWalletState)
     {
         HostScreen = screen;
         _walletDatabase = walletDatabase;
+        _selectedWalletState = selectedWalletState;
         GoToAddWallet = ReactiveCommand.CreateFromTask(NavigateToAddWalletView);
         Task.Run(() => CheckHasWallets());
     }

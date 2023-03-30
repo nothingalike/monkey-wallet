@@ -8,6 +8,7 @@ using Splat;
 using IMonkeyWalletService = MonkeyWallet.Core.Services.IWalletService;
 using MonkeyWalletService = MonkeyWallet.Core.Services.WalletService;
 using CardanoSharp.Wallet;
+using MonkeyWallet.Desktop.Models;
 
 namespace MonkeyWallet.Desktop
 {
@@ -32,6 +33,7 @@ namespace MonkeyWallet.Desktop
         
         private static void Register()
         {
+            Locator.CurrentMutable.RegisterLazySingleton(() => new SelectedWalletState());
             Locator.CurrentMutable.Register<ISettingsDatabase>(() => new SettingsDatabase());
             Locator.CurrentMutable.Register<IWalletDatabase>(() => new WalletDatabase());
             Locator.CurrentMutable.Register<IWalletKeyDatabase>(() => new WalletKeyDatabase());

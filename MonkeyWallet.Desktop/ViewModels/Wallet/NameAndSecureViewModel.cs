@@ -1,5 +1,6 @@
 ﻿using MonkeyWallet.Core.Data;
 using MonkeyWallet.Core.Services;
+using MonkeyWallet.Desktop.Models;
 using ReactiveUI;
 using Splat;
 using System;
@@ -47,7 +48,7 @@ public class NameAndSecureViewModel : ViewModelBase, IRoutableViewModel
         //save wallet
         await _walletService.AddWallet(Name, string.Join(" ", Mnemonic), ConfirmPassword);
         //go to Show Mnemonic View
-        HostScreen.Router.NavigateAndReset.Execute(new WalletListViewModel(HostScreen, Locator.Current.GetService<IWalletDatabase>()));
+        HostScreen.Router.NavigateAndReset.Execute(new WalletListViewModel(HostScreen, Locator.Current.GetService<IWalletDatabase>(), Locator.Current.GetService<SelectedWalletState>()));
     }
 
     private async Task PreviousHandler(CancellationToken arg)
