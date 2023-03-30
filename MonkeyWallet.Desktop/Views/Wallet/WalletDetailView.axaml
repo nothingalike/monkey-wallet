@@ -38,7 +38,7 @@
                 <TabItem.Header>
                     <TextBlock FontWeight="1500" VerticalAlignment="Center">Settings</TextBlock>
                 </TabItem.Header>
-                <v:WalletSettingsView WalletId="{Binding WalletName}"></v:WalletSettingsView>
+                <v:WalletSettingsView></v:WalletSettingsView>
             </TabItem>
         </TabControl>
     </Grid>

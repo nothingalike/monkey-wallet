@@ -2,37 +2,25 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
+using MonkeyWallet.Desktop.Models;
 using MonkeyWallet.Desktop.ViewModels.Wallet;
 using ReactiveUI;
+using Splat;
 
 namespace MonkeyWallet.Desktop.Views.Wallet;
 
 public partial class WalletSettingsView : ReactiveUserControl<WalletSettingsViewModel>
-{
-    public static readonly StyledProperty<string> WalletIdProperty
-        = AvaloniaProperty.Register<WalletSettingsView, string>(
-            nameof(WalletId));
-
-    public string WalletId
-    {
-        get => GetValue(WalletIdProperty);
-        set
-        {
-            SetValue(WalletIdProperty, value);
-            ViewModel.WalletId = value;
-        }
-    }
-    
+{    
     private TextBox walletName => this.FindControl<TextBox>("tbWalletName");
 
     public WalletSettingsView()
     {
-        DataContext = new WalletSettingsViewModel();
+        DataContext = new WalletSettingsViewModel(Locator.Current.GetService<SelectedWalletState>());
         InitializeComponent();
 
         this.WhenActivated(d =>
         {
-            walletName.Text = ViewModel.WalletId.ToString();
+            walletName.Text = ViewModel.SelectedWallet.GetWallet().Name;
         });
     }
 

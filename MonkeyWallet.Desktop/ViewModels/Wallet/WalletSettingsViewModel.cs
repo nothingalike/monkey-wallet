@@ -1,13 +1,14 @@
-﻿using ReactiveUI;
+﻿using MonkeyWallet.Desktop.Models;
+using ReactiveUI;
 
 namespace MonkeyWallet.Desktop.ViewModels.Wallet;
 
 public class WalletSettingsViewModel: ViewModelBase
 {
-    private string _walletId;
-    public string WalletId
+    public SelectedWalletState SelectedWallet;
+
+    public WalletSettingsViewModel(SelectedWalletState selectedWalletState)
     {
-        get => _walletId;
-        set => this.RaiseAndSetIfChanged(ref _walletId, value);
+        SelectedWallet = selectedWalletState;
     }
 }
