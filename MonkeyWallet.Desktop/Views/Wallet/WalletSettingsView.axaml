@@ -4,5 +4,69 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MonkeyWallet.Desktop.Views.Wallet.WalletSettingsView">
-    <TextBox Name="tbWalletName"></TextBox>
+
+  <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*"></ColumnDefinition>
+      <ColumnDefinition Width="*"></ColumnDefinition>
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*"></RowDefinition>
+      <RowDefinition Height="*"></RowDefinition>
+      <RowDefinition Height="*"></RowDefinition>
+      <RowDefinition Height="*"></RowDefinition>
+      <RowDefinition Height="*"></RowDefinition>
+      <RowDefinition Height="*"></RowDefinition>
+      <RowDefinition Height="*"></RowDefinition>
+    </Grid.RowDefinitions>
+    
+    <!--Change Name-->
+    <Label Margin="0, 0, 0, 5"
+           FontWeight="Bold"
+           FontSize="18">Change Name</Label>
+    <TextBox Name="tbName" 
+             Grid.Row="1" 
+             Grid.ColumnSpan="2"
+             Margin="0, 0, 0, 5"/>
+    <Button Name="btnResetChangeName" 
+            Grid.Row="2" 
+            HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Center">Reset</Button>
+    <Button Name="btnSubmitChangeName" 
+            Grid.Row="2" 
+            Grid.Column="1"
+            HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Center">Submit</Button>
+    
+    <!--Change Password-->
+    <Label Margin="0, 0, 0, 5"
+           FontWeight="Bold"
+           FontSize="18"
+           Grid.Row="3">Change Name</Label>
+    <TextBox Name="tbCurrentPassword"
+             Grid.Row="4"
+             Grid.ColumnSpan="2"
+             Watermark="Current Password"
+             Margin="0, 0, 0, 5"/>
+    <TextBox Name="tbNewPassword"
+             Grid.Row="5"
+             Watermark="New Password"
+             Margin="0, 0, 0, 5"/>
+    <TextBox Name="tbConfirmPassword"
+             Grid.Row="5"
+             Grid.Column="1"
+             Watermark="Confirm Password"
+             Margin="0, 0, 0, 5"/>
+    <Button Name="btnResetChangePassword"
+            Grid.Row="6"
+            HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Center">Reset</Button>
+    <Button Name="btnSubmitChangePassword"
+            Grid.Row="6"
+            Grid.Column="1"
+            HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Center">Submit</Button>
+    
+  </Grid>
+  
 </UserControl>

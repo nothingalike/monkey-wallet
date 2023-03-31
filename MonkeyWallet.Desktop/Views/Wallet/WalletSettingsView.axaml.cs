@@ -11,7 +11,7 @@ namespace MonkeyWallet.Desktop.Views.Wallet;
 
 public partial class WalletSettingsView : ReactiveUserControl<WalletSettingsViewModel>
 {    
-    private TextBox walletName => this.FindControl<TextBox>("tbWalletName");
+    private TextBox walletName => this.FindControl<TextBox>("tbName");
 
     public WalletSettingsView()
     {
