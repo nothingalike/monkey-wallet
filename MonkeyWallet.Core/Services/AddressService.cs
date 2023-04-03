@@ -1,4 +1,5 @@
 ﻿using CardanoSharp.Koios.Client;
+using CardanoSharp.Koios.Client.Contracts;
 using CardanoSharp.Wallet;
 using CardanoSharp.Wallet.Enums;
 using CardanoSharp.Wallet.Extensions.Models;
@@ -8,7 +9,10 @@ using MonkeyWallet.Core.Data;
 using MonkeyWallet.Core.Data.Models;
 using CardanoSharpAsset = CardanoSharp.Wallet.Models.Asset;
 using CardanoSharp.Wallet.Models;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Refit;
+using Utxo = CardanoSharp.Wallet.Models.Utxo;
 
 namespace MonkeyWallet.Core.Services
 {
@@ -18,27 +22,30 @@ namespace MonkeyWallet.Core.Services
         Task<string?> GetChangeAddress(int? addressIndex = null);
         Task<List<Utxo>> GetUtxos(string address);
         Task<Wallet> AddWallet(string name, string recoveryPhrase, string spendingPassword);
+        Task<AddressTransaction[]> GetWalletTransactions(AddressTransactionRequest request);
     }
 
-    public class AddressService: IAddressService
+    public class AddressService : IAddressService
     {
         private readonly IAddressClient _addressClient;
         private IMnemonicService _mnemonicService;
         private IWalletDatabase _walletDatabase;
         private IWalletKeyDatabase _walletKeyDatabase;
+        private readonly ILogger<IAddressClient> _logger;
 
         public AddressService(
-            IAddressClient addressClient, 
-            IMnemonicService mnemonicService, 
-            IWalletDatabase walletDatabase, 
-            IWalletKeyDatabase walletKeyDatabase)
+            IAddressClient addressClient,
+            IMnemonicService mnemonicService,
+            IWalletDatabase walletDatabase,
+            IWalletKeyDatabase walletKeyDatabase, ILogger<IAddressClient> logger)
         {
             _addressClient = addressClient;
             _mnemonicService = mnemonicService;
             _walletDatabase = walletDatabase;
             _walletKeyDatabase = walletKeyDatabase;
+            _logger = logger;
         }
-        
+
         public async Task<string?> GetWalletAddress(int? addressIndex = null)
         {
             addressIndex ??= 0;
@@ -60,7 +67,7 @@ namespace MonkeyWallet.Core.Services
 
             return address.ToString();
         }
-        
+
         public async Task<string?> GetChangeAddress(int? addressIndex = null)
         {
             addressIndex ??= 0;
@@ -93,7 +100,7 @@ namespace MonkeyWallet.Core.Services
 
                 foreach (var ai in addressInfo.SelectMany(x => x.UtxoSets))
                 {
-                    if(ai is null) continue;
+                    if (ai is null) continue;
                     var utxo = new Utxo()
                     {
                         TxIndex = ai.TxIndex,
@@ -174,6 +181,22 @@ namespace MonkeyWallet.Core.Services
             var wallet = await _walletDatabase.GetByNameAsync(name);
             wallet.Keys = await _walletKeyDatabase.GetWalletKeysAsync(wallet.Id);
             return wallet;
+        }
+
+        public async Task<AddressTransaction[]> GetWalletTransactions(AddressTransactionRequest request)
+        {
+            AddressTransaction[]? walletTransactions;
+            try
+            {
+                walletTransactions = (await _addressClient.GetAddressTransactions(request)).Content;
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("There was an error getting the transactions for the wallet with error {Error}", e);
+                throw;
+            }
+
+            return walletTransactions ?? Array.Empty<AddressTransaction>();
         }
     }
 }

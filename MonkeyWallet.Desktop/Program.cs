@@ -2,12 +2,14 @@
 using Avalonia.ReactiveUI;
 using System;
 using System.Reflection;
+using CardanoSharp.Koios.Client;
 using MonkeyWallet.Core.Data;
 using ReactiveUI;
 using Splat;
 using IMonkeyWalletService = MonkeyWallet.Core.Services.IWalletService;
 using MonkeyWalletService = MonkeyWallet.Core.Services.WalletService;
 using CardanoSharp.Wallet;
+using Microsoft.Extensions.Logging;
 using MonkeyWallet.Desktop.Models;
 
 namespace MonkeyWallet.Desktop
@@ -40,7 +42,9 @@ namespace MonkeyWallet.Desktop
             Locator.CurrentMutable.Register<IMonkeyWalletService>(() => new MonkeyWalletService(
                 new MnemonicService(),
                 Locator.Current.GetService<IWalletKeyDatabase>(),
-                Locator.Current.GetService<IWalletDatabase>()
+                Locator.Current.GetService<IWalletDatabase>(),
+                Locator.Current.GetService<IAccountClient>(),
+                Locator.Current.GetService<ILogger<MonkeyWalletService>>()
             ));
         }
     }

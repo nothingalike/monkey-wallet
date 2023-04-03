@@ -3,12 +3,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:v="clr-namespace:MonkeyWallet.Desktop.Views.Wallet"
-             xmlns:vm="clr-namespace:MonkeyWallet.Desktop.ViewModels.Wallet"
+             xmlns:vm="clr-namespace:MonkeyWallet.Desktop.ViewModels"
+             xmlns:wallet="clr-namespace:MonkeyWallet.Desktop.ViewModels.Wallet"
+             xmlns:transaction="clr-namespace:MonkeyWallet.Desktop.Views.Transaction"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MonkeyWallet.Desktop.Views.Wallet.WalletDetailView">
     
     <Design.DataContext>
-        <vm:WalletDetailViewModel></vm:WalletDetailViewModel>
+        <wallet:WalletDetailViewModel></wallet:WalletDetailViewModel>
     </Design.DataContext>
     
     <Grid RowDefinitions="Auto, Auto">
@@ -23,6 +25,7 @@
                 <TabItem.Header>
                     <TextBlock FontWeight="1500" VerticalAlignment="Center">Transactions</TextBlock>
                 </TabItem.Header>
+                <transaction:TransactionListView></transaction:TransactionListView>
             </TabItem>
             <TabItem>
                 <TabItem.Header>

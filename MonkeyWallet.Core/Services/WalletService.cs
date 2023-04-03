@@ -8,27 +8,35 @@ using SQLite;
 using System;
 using System.Text.Json;
 using System.Threading.Tasks;
+using CardanoSharp.Koios.Client;
+using CardanoSharp.Koios.Client.Contracts;
+using Microsoft.Extensions.Logging;
 
 namespace MonkeyWallet.Core.Services
 {
     public interface IWalletService
     {
         Task AddWallet(string name, string recoveryPhrase, string spendingPassword);
+        Task<AccountInformation[]> GetWalletInformation(string[] stakeAddress);
     }
 
     public class WalletService : IWalletService
     {
-        private IMnemonicService _mnemonicService;
-        private IWalletDatabase _walletDatabase;
-        private IWalletKeyDatabase _walletKeyDatabase;
+        private readonly IMnemonicService _mnemonicService;
+        private readonly IWalletDatabase _walletDatabase;
+        private readonly IWalletKeyDatabase _walletKeyDatabase;
+        private readonly IAccountClient _accountClient;
+        private readonly ILogger<WalletService> _logger;
 
         public WalletService(
             IMnemonicService mnemonicService,
             IWalletKeyDatabase walletKeyDatabase,
-            IWalletDatabase walletDatabase)
+            IWalletDatabase walletDatabase, IAccountClient accountClient, ILogger<WalletService> logger)
         {
             _mnemonicService = mnemonicService;
             _walletDatabase = walletDatabase;
+            _accountClient = accountClient;
+            _logger = logger;
             _walletKeyDatabase = walletKeyDatabase;
         }
 
@@ -68,6 +76,26 @@ namespace MonkeyWallet.Core.Services
                 KeyIndex = accountIx,
                 AccountIndex = accountIx
             });
+        }
+
+        public async Task<AccountInformation[]> GetWalletInformation(string[] stakeAddress)
+        {
+
+            AccountInformation[]? accountInformation;
+            try
+            {
+                accountInformation = (await _accountClient.GetAccountInformation(new AccountBulkRequest()
+                {
+                    StakeAddresses = stakeAddress
+                })).Content;
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("There was an error getting the transactions for the wallet with error {Error}", e);
+                throw;
+            }
+
+            return accountInformation ?? Array.Empty<AccountInformation>();
         }
     }
 }

@@ -84,7 +84,5 @@ public class WalletDetailViewModel : ViewModelBase, IRoutableViewModel
 
         var obj = Newtonsoft.Json.JsonConvert.DeserializeObject<List<dynamic>>(await response.Content.ReadAsStringAsync())!;
         AdaPrice= "$" + Math.Round(decimal.Parse((string)obj[0].price), 3).ToString(CultureInfo.InvariantCulture);
-
-
     }
 }

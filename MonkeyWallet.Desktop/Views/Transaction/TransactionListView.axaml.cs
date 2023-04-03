@@ -1,10 +1,10 @@
-﻿using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
+﻿using Avalonia.Markup.Xaml;
+using Avalonia.ReactiveUI;
+using MonkeyWallet.Desktop.ViewModels.Transaction;
 
 namespace MonkeyWallet.Desktop.Views.Transaction;
 
-public partial class TransactionListView : UserControl
+public partial class TransactionListView : ReactiveUserControl<TransactionListView>
 {
     public TransactionListView()
     {
