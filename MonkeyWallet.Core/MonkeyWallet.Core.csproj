@@ -15,4 +15,9 @@
     <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.16.0" />
   </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Requests\" />
+  </ItemGroup>
 </Project>
