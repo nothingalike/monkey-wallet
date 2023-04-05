@@ -18,7 +18,7 @@ public class WalletDetailViewModel : ViewModelBase, IRoutableViewModel
     public IScreen HostScreen { get; }
     
     public ICommand GotToWalletListView { get; set; }
-    
+
     private string _walletName;
     public string WalletName
     {
@@ -46,15 +46,23 @@ public class WalletDetailViewModel : ViewModelBase, IRoutableViewModel
         get => _adaPrice;
         set => this.RaiseAndSetIfChanged(ref _adaPrice, value);
     }
+    
+    private int _walletId;
+    public int WalletId
+    {
+        get => _walletId;
+        set => this.RaiseAndSetIfChanged(ref _walletId, value);
+    }
 
     public WalletDetailViewModel(IScreen screen, Core.Data.Models.Wallet wallet)
     {
         HostScreen = screen;
+
+        WalletId = wallet.Id;
         WalletName = wallet.Name;
-        WalletType = wallet.WalletType is 0 ? "HD" : "Key/Pair";
+        WalletType = wallet.WalletType is 1 ? "HD" : "Key/Pair";
         GotToWalletListView = ReactiveCommand.Create(RouteToWalletListView);
         Task.Run(() => GetCardanoPrice());
-
     }
 
     private void RouteToWalletListView()
