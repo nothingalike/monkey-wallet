@@ -104,6 +104,45 @@ public class WalletSettingsViewModel: ViewModelBase
         ResetPasswordCommand = ReactiveCommand.Create(ResetPasswordHandler);
     }
 
+    #region Update Name Handlers
+    private void SetWalletName()
+    {
+        WalletNameError = string.Empty;
+        WalletName = SelectedWallet.GetWallet().Name;
+    }
+
+    private async Task UpdateNameHandler()
+    {
+        WalletNameError = string.Empty;
+
+        if (string.IsNullOrEmpty(WalletName))
+        {
+            WalletNameError = "Name is required";
+            return;
+        }
+
+        var walletDatabase = Locator.Current.GetService<IWalletDatabase>();
+        var wallets = await walletDatabase.ListAsync();
+        var dupName = wallets.Where(x => x.Id != SelectedWallet.GetWallet().Id).Any(x => x.Name == WalletName);
+        if (dupName)
+        {
+            WalletNameError = "Name is already taken";
+            return;
+        }
+
+        var wallet = SelectedWallet.GetWallet();
+        wallet.Name = WalletName;
+
+        await walletDatabase.SaveAsync(wallet);
+
+        SelectedWallet.SetWallet(wallet);
+        UpdateNameSuccessMessage = "Successfully updated name";
+        await Task.Delay(3000);
+        UpdateNameSuccessMessage = string.Empty;
+    }
+    #endregion
+
+    #region Update Password Handlers
     private void ResetPasswordHandler()
     {
         CurrentPassword = string.Empty;
@@ -138,7 +177,7 @@ public class WalletSettingsViewModel: ViewModelBase
             return;
         }
 
-        if(NewPassword != ConfirmPassword)
+        if (NewPassword != ConfirmPassword)
         {
             ConfirmPasswordError = "New/Confirm Password mismatch";
             return;
@@ -147,15 +186,15 @@ public class WalletSettingsViewModel: ViewModelBase
         var wallet = SelectedWallet.GetWallet();
         var walletKeyDatabase = Locator.Current.GetService<IWalletKeyDatabase>();
         var walletKey = (await walletKeyDatabase.GetWalletKeysAsync(wallet.Id)).FirstOrDefault();
-        if(wallet.WalletType == (int)WalletType.HD)
+        if (wallet.WalletType == (int)WalletType.HD)
         {
-            if(walletKey != null)
+            if (walletKey != null)
             {
                 var decryptedSkey = JsonSerializer.Deserialize<PrivateKey>(walletKey.Skey).Decrypt(CurrentPassword);
                 var messageByte = "test".HexToByteArray();
                 var signature = decryptedSkey.Sign(messageByte);
                 var verified = JsonSerializer.Deserialize<PublicKey>(walletKey.Vkey).Verify(messageByte, signature);
-                if(!verified)
+                if (!verified)
                 {
                     CurrentPasswordError = "Current password is incorrect";
                     return;
@@ -169,55 +208,6 @@ public class WalletSettingsViewModel: ViewModelBase
                 UpdatePasswordSuccessMessage = string.Empty;
             }
         }
-    }
-
-    private void SetWalletName()
-    {
-        WalletNameError = string.Empty;
-        WalletName = SelectedWallet.GetWallet().Name;
-    }
-
-    private async Task UpdateNameHandler()
-    {
-        WalletNameError = string.Empty;
-
-        if (string.IsNullOrEmpty(WalletName))
-        {
-            WalletNameError = "Name is required";
-            return;
-        }
-
-        var walletDatabase = Locator.Current.GetService<IWalletDatabase>();
-        var wallets = await walletDatabase.ListAsync();
-        var dupName = wallets.Where(x => x.Id != SelectedWallet.GetWallet().Id).Any(x => x.Name == WalletName);
-        if(dupName)
-        {
-            WalletNameError = "Name is already taken";
-            return;
-        }
-
-        var wallet = SelectedWallet.GetWallet();
-        wallet.Name = WalletName;
-
-        await walletDatabase.SaveAsync(wallet);
-
-        SelectedWallet.SetWallet(wallet);
-        UpdateNameSuccessMessage = "Successfully updated name";
-        await Task.Delay(3000);
-        UpdateNameSuccessMessage = string.Empty;
-    }
-
-    #region Update Name Handlers
-    private async Task UpdateName(string newName)
-    {
-
-    }
-    #endregion
-
-    #region Update Password Handlers
-    private async Task UpdatePassword(string currentPassword, string newPassword, string confirmPassword)
-    {
-
     }
     #endregion
 }
