@@ -1,5 +1,7 @@
 ﻿using System;
+using MonkeyWallet.Desktop.ViewModels.Transaction;
 using MonkeyWallet.Desktop.ViewModels.Wallet;
+using MonkeyWallet.Desktop.Views.Transaction;
 using MonkeyWallet.Desktop.Views.Wallet;
 using ReactiveUI;
 using Splat;
@@ -17,6 +19,9 @@ public class AppViewLocator : ReactiveUI.IViewLocator
         EnterMnemonicViewModel context => new EnterMnemonicView() { DataContext = context },
         NameAndSecureViewModel context => new NameAndSecureView() { DataContext = context },
         WalletDetailViewModel context => new WalletDetailView() { DataContext = context },
+        TransactionDetailViewModel context => new TransactionDetailView(){DataContext = context},
+        TransactionListViewModel context => new TransactionListView() { DataContext = context },
+
         _ => throw new ArgumentOutOfRangeException(nameof(viewModel))
     };
 }

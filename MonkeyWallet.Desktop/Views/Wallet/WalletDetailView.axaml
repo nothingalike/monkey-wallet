@@ -25,7 +25,7 @@
                 <TabItem.Header>
                     <TextBlock FontWeight="1500" VerticalAlignment="Center">Transactions</TextBlock>
                 </TabItem.Header>
-                <transaction:TransactionListView></transaction:TransactionListView>
+                <transaction:BaseTransactionView></transaction:BaseTransactionView>
             </TabItem>
             <TabItem>
                 <TabItem.Header>

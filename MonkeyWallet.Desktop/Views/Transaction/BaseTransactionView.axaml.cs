@@ -6,15 +6,17 @@ using MonkeyWallet.Desktop.ViewModels.Transaction;
 
 namespace MonkeyWallet.Desktop.Views.Transaction;
 
-public partial class TransactionDetailView : ReactiveUserControl<TransactionDetailViewModel>
+public partial class BaseTransactionView : ReactiveUserControl<BaseTransactionViewModel>
 {
-    public TransactionDetailView()
+    public BaseTransactionView()
     {
+        DataContext = new BaseTransactionViewModel();
         InitializeComponent();
     }
 
     private void InitializeComponent()
     {
+
         AvaloniaXamlLoader.Load(this);
     }
 }
