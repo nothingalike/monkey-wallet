@@ -4,7 +4,7 @@
     {
         protected readonly SQLite.SQLiteAsyncConnection database;
 
-        public BaseDatabase()
+        protected BaseDatabase()
         {
             var dbName = "Talon.db3";
             var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Talon");

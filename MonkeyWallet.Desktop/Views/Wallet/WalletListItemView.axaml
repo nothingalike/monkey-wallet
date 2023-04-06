@@ -12,8 +12,7 @@
         </Border>
         <UniformGrid  Columns="3" Rows="1" HorizontalAlignment="Stretch" >
             <TextBlock Text="{Binding WalletName}" />
-            <TextBlock Text="Ada Amount 5000"/>
-            <TextBlock Text="Last Sync 2 minutes ago"/>
+            <TextBlock Text="{Binding TotalBalance}" />
         </UniformGrid>
         
     </StackPanel>

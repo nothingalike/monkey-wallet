@@ -15,6 +15,7 @@ using System.Runtime;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using MonkeyWallet.Core.Common;
 
 namespace MonkeyWallet.Core.Services.GetUtxos;
 
@@ -41,9 +42,9 @@ public class HDWalletGetUtxosService : IGetUtxosService
         if (settings is not null)
             networkType = settings.Value switch
             {
-                "mainnet" => NetworkType.Mainnet,
-                "preprod" => NetworkType.Preprod,
-                "preview" => NetworkType.Preview,
+                NetworkOptions.MAINNET => NetworkType.Mainnet,
+                NetworkOptions.PREPROD => NetworkType.Preprod,
+                NetworkOptions.PREVIEW => NetworkType.Preview,
                 _ => NetworkType.Mainnet
             };
 

@@ -16,7 +16,6 @@ public partial class BaseTransactionView : ReactiveUserControl<BaseTransactionVi
 
     private void InitializeComponent()
     {
-
         AvaloniaXamlLoader.Load(this);
     }
 }
