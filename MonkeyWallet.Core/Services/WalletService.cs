@@ -26,17 +26,15 @@ namespace MonkeyWallet.Core.Services
         private readonly IWalletDatabase _walletDatabase;
         private readonly IWalletKeyDatabase _walletKeyDatabase;
         private readonly IAccountClient _accountClient;
-        private readonly ILogger<WalletService> _logger;
 
         public WalletService(
             IMnemonicService mnemonicService,
             IWalletKeyDatabase walletKeyDatabase,
-            IWalletDatabase walletDatabase, IAccountClient accountClient, ILogger<WalletService> logger)
+            IWalletDatabase walletDatabase, IAccountClient accountClient)
         {
             _mnemonicService = mnemonicService;
             _walletDatabase = walletDatabase;
             _accountClient = accountClient;
-            _logger = logger;
             _walletKeyDatabase = walletKeyDatabase;
         }
 
@@ -82,18 +80,10 @@ namespace MonkeyWallet.Core.Services
         {
 
             AccountInformation[]? accountInformation;
-            try
+            accountInformation = (await _accountClient.GetAccountInformation(new AccountBulkRequest()
             {
-                accountInformation = (await _accountClient.GetAccountInformation(new AccountBulkRequest()
-                {
-                    StakeAddresses = stakeAddress
-                })).Content;
-            }
-            catch (Exception e)
-            {
-                _logger.LogError("There was an error getting the transactions for the wallet with error {Error}", e);
-                throw;
-            }
+                StakeAddresses = stakeAddress
+            })).Content;
 
             return accountInformation ?? Array.Empty<AccountInformation>();
         }

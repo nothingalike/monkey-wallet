@@ -11,6 +11,7 @@ using MonkeyWalletService = MonkeyWallet.Core.Services.WalletService;
 using CardanoSharp.Wallet;
 using Microsoft.Extensions.Logging;
 using MonkeyWallet.Desktop.Models;
+using Refit;
 
 namespace MonkeyWallet.Desktop
 {
@@ -39,12 +40,15 @@ namespace MonkeyWallet.Desktop
             Locator.CurrentMutable.Register<ISettingsDatabase>(() => new SettingsDatabase());
             Locator.CurrentMutable.Register<IWalletDatabase>(() => new WalletDatabase());
             Locator.CurrentMutable.Register<IWalletKeyDatabase>(() => new WalletKeyDatabase());
+            Locator.CurrentMutable.Register<IMnemonicService>(() => new MnemonicService());
+            Locator.CurrentMutable.Register(
+                () => RestService.For<IAccountClient>("https://api.koios.rest/api/v0/"));
+
             Locator.CurrentMutable.Register<IMonkeyWalletService>(() => new MonkeyWalletService(
                 new MnemonicService(),
                 Locator.Current.GetService<IWalletKeyDatabase>(),
                 Locator.Current.GetService<IWalletDatabase>(),
-                Locator.Current.GetService<IAccountClient>(),
-                Locator.Current.GetService<ILogger<MonkeyWalletService>>()
+                Locator.Current.GetService<IAccountClient>()
             ));
         }
     }

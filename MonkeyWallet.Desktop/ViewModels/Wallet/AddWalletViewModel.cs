@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using CardanoSharp.Koios.Client;
 
 namespace MonkeyWallet.Desktop.ViewModels.Wallet;
 
@@ -51,6 +52,6 @@ public class AddWalletViewModel : ViewModelBase, IRoutableViewModel
     private async Task GoBackHandler(CancellationToken arg)
     {
         //go to Enter Mnemonic View
-        HostScreen.Router.NavigateAndReset.Execute(new WalletListViewModel(HostScreen, Locator.Current.GetService<IWalletDatabase>(), Locator.Current.GetService<SelectedWalletState>()));
+        HostScreen.Router.NavigateAndReset.Execute(new WalletListViewModel(HostScreen, Locator.Current.GetService<IWalletDatabase>(), Locator.Current.GetService<SelectedWalletState>(), Locator.Current.GetService<IWalletKeyDatabase>(), Locator.Current.GetService<ISettingsDatabase>(), Locator.Current.GetService<IAccountClient>()));
     }
 }
