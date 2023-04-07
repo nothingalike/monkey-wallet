@@ -2,6 +2,7 @@
 
 public static class NetworkOptions
 {
-    public static string TESTNET = "TESTNET";
-    public static string MAINNET = "MAINNET";
+    public const string MAINNET = "MAINNET";
+    public const string PREPROD = "PREPROD";
+    public const string PREVIEW = "PREVIEW";
 }

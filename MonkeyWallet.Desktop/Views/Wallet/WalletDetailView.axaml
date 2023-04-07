@@ -2,7 +2,47 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:v="clr-namespace:MonkeyWallet.Desktop.Views.Wallet"
+             xmlns:vm="clr-namespace:MonkeyWallet.Desktop.ViewModels"
+             xmlns:wallet="clr-namespace:MonkeyWallet.Desktop.ViewModels.Wallet"
+             xmlns:transaction="clr-namespace:MonkeyWallet.Desktop.Views.Transaction"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MonkeyWallet.Desktop.Views.Wallet.WalletDetailView">
-    Welcome to Avalonia!
+    
+    <Design.DataContext>
+        <wallet:WalletDetailViewModel></wallet:WalletDetailViewModel>
+    </Design.DataContext>
+    
+    <Grid RowDefinitions="Auto, Auto">
+        <Grid ColumnDefinitions="Auto, Auto, Auto, Auto" Grid.Column="0" Grid.Row="0" Height="150">
+            <Button Height="50" Width="100" Margin="50,0,50,0" Command="{Binding GotToWalletListView}" VerticalAlignment="Center" HorizontalAlignment="Stretch" Grid.Column="0">Wallets</Button>
+            <TextBlock ClipToBounds="True" Text="{Binding WalletName}" Margin="100,0,100,0" FontSize="100" FontWeight="1500" VerticalAlignment="Center" HorizontalAlignment="Stretch" Grid.Column="1"></TextBlock>
+            <TextBlock Text="{Binding WalletType}" Margin="100,0,100,0" FontSize="100" FontWeight="1500" VerticalAlignment="Center" HorizontalAlignment="Stretch" Grid.Column="2"></TextBlock>
+            <TextBlock Text="{Binding AdaPrice}" Margin="100,0,100,0" FontSize="100" FontWeight="1500" VerticalAlignment="Center" HorizontalAlignment="Stretch" Grid.Column="3"></TextBlock>
+        </Grid>
+        <TabControl TabStripPlacement="Top" HorizontalAlignment="Center" Padding="0" Grid.Column="0" Grid.Row="1">
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock FontWeight="1500" VerticalAlignment="Center">Transactions</TextBlock>
+                </TabItem.Header>
+                <transaction:BaseTransactionView></transaction:BaseTransactionView>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock FontWeight="1500" VerticalAlignment="Center">Send</TextBlock>
+                </TabItem.Header>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock FontWeight="1500" VerticalAlignment="Center">Receive</TextBlock>
+                </TabItem.Header>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock FontWeight="1500" VerticalAlignment="Center">Settings</TextBlock>
+                </TabItem.Header>
+                <v:WalletSettingsView></v:WalletSettingsView>
+            </TabItem>
+        </TabControl>
+    </Grid>
 </UserControl>

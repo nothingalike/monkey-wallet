@@ -1,5 +1,6 @@
 ﻿using MonkeyWallet.Core.Data;
 using MonkeyWallet.Core.Services;
+using MonkeyWallet.Desktop.Models;
 using ReactiveUI;
 using Splat;
 using System;
@@ -9,6 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using CardanoSharp.Koios.Client;
 
 namespace MonkeyWallet.Desktop.ViewModels.Wallet;
 
@@ -29,7 +31,7 @@ public class NameAndSecureViewModel : ViewModelBase, IRoutableViewModel
     public NameAndSecureViewModel(List<string> mnemonic, IScreen screen, IWalletService walletService)
     {
         _walletService = walletService;
-        Mnemonic = mnemonic;    
+        Mnemonic = mnemonic;
         HostScreen = screen;
         Next = ReactiveCommand.CreateFromTask(NextHandler);
         Previous = ReactiveCommand.CreateFromTask(PreviousHandler);
@@ -47,7 +49,7 @@ public class NameAndSecureViewModel : ViewModelBase, IRoutableViewModel
         //save wallet
         await _walletService.AddWallet(Name, string.Join(" ", Mnemonic), ConfirmPassword);
         //go to Show Mnemonic View
-        HostScreen.Router.NavigateAndReset.Execute(new WalletListViewModel(HostScreen, Locator.Current.GetService<IWalletDatabase>()));
+        HostScreen.Router.NavigateAndReset.Execute(new WalletListViewModel(HostScreen, Locator.Current.GetService<IWalletDatabase>(), Locator.Current.GetService<SelectedWalletState>(), Locator.Current.GetService<IWalletKeyDatabase>(), Locator.Current.GetService<ISettingsDatabase>(), Locator.Current.GetService<IAccountClient>()));
     }
 
     private async Task PreviousHandler(CancellationToken arg)

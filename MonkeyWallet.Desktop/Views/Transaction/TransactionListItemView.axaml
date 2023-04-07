@@ -3,8 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="MonkeyWallet.Desktop.Views.Wallet.WalletListItemView">
-    
+             x:Class="MonkeyWallet.Desktop.Views.Transaction.TransactionListItemView">
     <StackPanel>
         <Border CornerRadius="10" ClipToBounds="True">
             <Panel Background="#7FFF22DD">
@@ -12,7 +11,7 @@
         </Border>
         <UniformGrid  Columns="3" Rows="1" HorizontalAlignment="Stretch" >
             <TextBlock Text="{Binding WalletName}" />
-            <TextBlock Text="{Binding TotalBalance}" />
+            <TextBlock Text="TX hash: the hash goes here"/>
         </UniformGrid>
         
     </StackPanel>
