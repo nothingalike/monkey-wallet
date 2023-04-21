@@ -9,10 +9,10 @@ namespace MonkeyWallet.Desktop.Models;
 
 public class SelectedWalletState
 {
-    private Wallet _wallet { get; set; }
+    private Wallet? _wallet { get; set; }
 
-    public Wallet GetWallet() => _wallet;
-    public void SetWallet(Wallet wallet)
+    public Wallet? GetWallet() => _wallet;
+    public void SetWallet(Wallet? wallet)
     {
         _wallet = wallet;
     }

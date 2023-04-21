@@ -21,7 +21,7 @@ public class WalletDetailViewModel : ViewModelBase, IRoutableViewModel
 
     private string _walletName;
 
-    public static Core.Data.Models.Wallet _wallet;
+    public static Core.Data.Models.Wallet? Wallet;
 
     public string WalletName
     {
@@ -61,10 +61,10 @@ public class WalletDetailViewModel : ViewModelBase, IRoutableViewModel
         set => this.RaiseAndSetIfChanged(ref _walletId, value);
     }
 
-    public WalletDetailViewModel(IScreen screen, Core.Data.Models.Wallet wallet)
+    public WalletDetailViewModel(IScreen screen, Core.Data.Models.Wallet? wallet)
     {
         HostScreen = screen;
-        _wallet = wallet;
+        Wallet = wallet;
         WalletId = wallet.Id;
         WalletName = wallet.Name;
         WalletType = wallet.WalletType is 1 ? "HD" : "Key/Pair";

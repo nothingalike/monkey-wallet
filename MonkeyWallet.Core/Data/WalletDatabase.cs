@@ -10,7 +10,7 @@ namespace MonkeyWallet.Core.Data
         Task<Wallet?> GetByNameAsync(string name);
         Task<int> GetCountAsync();
         Task<bool> ExistsAsync(string name);
-        Task<int> SaveAsync(Wallet wallet);
+        Task<int> SaveAsync(Wallet? wallet);
         Task<int> DeleteAsync(Wallet wallet);
     }
 
@@ -58,7 +58,7 @@ namespace MonkeyWallet.Core.Data
                     .FirstOrDefaultAsync()) != null;
         }
 
-        public async Task<int> SaveAsync(Wallet wallet)
+        public async Task<int> SaveAsync(Wallet? wallet)
         {
             if (wallet.Id != 0)
             {

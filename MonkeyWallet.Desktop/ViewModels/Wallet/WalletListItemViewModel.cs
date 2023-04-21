@@ -8,7 +8,7 @@ public class WalletListItemViewModel : ViewModelBase
     public int Id { get; init; }
     public string? TotalBalance { get; set; }
 
-    public Wallet Wallet { get; set; }
+    public Wallet? Wallet { get; set; }
 
     public WalletListItemViewModel(int id)
     {
