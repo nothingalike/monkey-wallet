@@ -43,6 +43,8 @@ namespace MonkeyWallet.Desktop
             Locator.CurrentMutable.Register<IMnemonicService>(() => new MnemonicService());
             Locator.CurrentMutable.Register(
                 () => RestService.For<IAccountClient>("https://preprod.koios.rest/api/v0"));
+            Locator.CurrentMutable.Register(
+                () => RestService.For<IAddressClient>("https://preprod.koios.rest/api/v0"));
 
             Locator.CurrentMutable.Register<IMonkeyWalletService>(() => new MonkeyWalletService(
                 new MnemonicService(),

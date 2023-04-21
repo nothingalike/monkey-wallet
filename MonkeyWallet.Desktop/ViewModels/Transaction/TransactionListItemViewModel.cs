@@ -2,5 +2,11 @@
 
 public class TransactionListItemViewModel : ViewModelBase
 {
-    public string WalletName => "Transaction.Name";
+    public string? TxHash { get; set; }
+    
+    public uint EpochNo { get; set; }
+    
+    public uint? BlockHeight { get; set; }
+    
+    public ulong? BlockTime { get; set; }
 }

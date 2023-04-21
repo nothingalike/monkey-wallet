@@ -1,7 +1,5 @@
-﻿using System.Linq;
+﻿using CardanoSharp.Koios.Client;
 using MonkeyWallet.Core.Data;
-using MonkeyWallet.Desktop.Models;
-using MonkeyWallet.Desktop.ViewModels.Wallet;
 using ReactiveUI;
 using Splat;
 
@@ -14,7 +12,7 @@ public class BaseTransactionViewModel : ReactiveObject, IActivatableViewModel, I
 
     public BaseTransactionViewModel()
     {
-        Router.Navigate.Execute(new TransactionListViewModel(this));
+        Router.Navigate.Execute(new TransactionListViewModel(this, Locator.Current.GetService<IWalletKeyDatabase>(), Locator.Current.GetService<IAddressClient>()));
     }
 
 }
