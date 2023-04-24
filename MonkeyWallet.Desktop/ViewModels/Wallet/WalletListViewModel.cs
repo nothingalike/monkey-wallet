@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -7,6 +9,7 @@ using System.Windows.Input;
 using CardanoSharp.Koios.Client;
 using CardanoSharp.Koios.Client.Contracts;
 using CardanoSharp.Wallet.Enums;
+using CardanoSharp.Wallet.Extensions.Models;
 using CardanoSharp.Wallet.Models.Addresses;
 using CardanoSharp.Wallet.Models.Keys;
 using CardanoSharp.Wallet.Utilities;
@@ -82,7 +85,7 @@ public class WalletListViewModel : ViewModelBase, IRoutableViewModel
             if (wallet.WalletType is (int)WalletType.HD)
             {
                 WalletKey validKey = keys.First();
-                var publicKey = JsonSerializer.Deserialize<PublicKey>(validKey.Vkey);
+                PublicKey? publicKey = JsonSerializer.Deserialize<PublicKey>(validKey.Vkey).Derive(RoleType.Staking).Derive(0).PublicKey;
                 NetworkType networkType = NetworkType.Mainnet;
 
                 Core.Data.Models.Settings? settings = await _settingsDatabase.GetByKeyAsync("Network");
@@ -102,10 +105,11 @@ public class WalletListViewModel : ViewModelBase, IRoutableViewModel
                     StakeAddresses = new[] { stakeAddress.ToString() }
                 })).Content;
             }
-            
+
+            double totalBalanceCalculation = double.TryParse(response?.FirstOrDefault()?.TotalBalance, out double answer) ? answer / 1000000000 : 0;
             UserWallets.Add(new WalletListItemViewModel(wallet.Id)
             {
-                TotalBalance = response?.FirstOrDefault()?.TotalBalance,
+                TotalBalance = totalBalanceCalculation.ToString(CultureInfo.InvariantCulture) + " ADA",
                 WalletName = wallet.Name,
                 Wallet = wallet
             });

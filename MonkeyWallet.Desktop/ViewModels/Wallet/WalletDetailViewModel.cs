@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Net.Http;
-using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using CardanoSharp.Koios.Client;
-using CardanoSharp.Wallet.Models.Keys;
 using MonkeyWallet.Core.Data;
-using MonkeyWallet.Core.Data.Models;
-using MonkeyWallet.Core.Services;
 using MonkeyWallet.Desktop.Models;
 using ReactiveUI;
 using Splat;
@@ -26,7 +21,7 @@ public class WalletDetailViewModel : ViewModelBase, IRoutableViewModel
 
     private string _walletName;
 
-    private readonly Core.Data.Models.Wallet _wallet;
+    public static Core.Data.Models.Wallet? Wallet;
 
     public string WalletName
     {
@@ -66,10 +61,10 @@ public class WalletDetailViewModel : ViewModelBase, IRoutableViewModel
         set => this.RaiseAndSetIfChanged(ref _walletId, value);
     }
 
-    public WalletDetailViewModel(IScreen screen, Core.Data.Models.Wallet wallet)
+    public WalletDetailViewModel(IScreen screen, Core.Data.Models.Wallet? wallet)
     {
         HostScreen = screen;
-        _wallet = wallet;
+        Wallet = wallet;
         WalletId = wallet.Id;
         WalletName = wallet.Name;
         WalletType = wallet.WalletType is 1 ? "HD" : "Key/Pair";
