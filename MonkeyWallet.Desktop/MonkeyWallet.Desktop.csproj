@@ -39,4 +39,8 @@
   <ItemGroup>
     <ProjectReference Include="..\MonkeyWallet.Core\MonkeyWallet.Core.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Wallet\ReceiveFunds\" />
+  </ItemGroup>
 </Project>
