@@ -9,9 +9,11 @@
             <Panel Background="#7FFF22DD">
             </Panel>
         </Border>
-        <UniformGrid  Columns="3" Rows="1" HorizontalAlignment="Stretch" >
-            <TextBlock Text="{Binding WalletName}" />
-            <TextBlock Text="TX hash: the hash goes here"/>
+        <UniformGrid  Columns="4" Rows="1" >
+            <TextBlock Text="{Binding TxHash, StringFormat='Tx Hash {0}'}"/>
+            <TextBlock Text="{Binding EpochNo, StringFormat='EpochNo {0}'}"/>
+            <TextBlock Text="{Binding BlockHeight, StringFormat='BlockHeight {0}'}"/>
+            <TextBlock Text="{Binding BlockTime, StringFormat='BlockTime {0}'}"/>
         </UniformGrid>
         
     </StackPanel>
